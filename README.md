@@ -1,11 +1,19 @@
-# Nura — Marketing Website
+# Nura, Marketing Site
 
-A warm, calm marketing landing page for **Nura**, a gentle voice-first companion
-for older adults living with dementia, Alzheimer's, and memory loss. The site is
-designed for the **family caregiver**: trustworthy, reassuring, and easy to read.
+Marketing landing page for Nura, a voice-first companion for older adults
+living with dementia, Alzheimer's, and memory loss. The page is written for the
+family caregiver rather than the end user, since they are the one deciding
+whether to try it.
 
-> This is the marketing site only — no login, no real backend. The waitlist form
-> is client-side and shows a friendly success state on submit.
+Live: https://nura-six-alpha.vercel.app
+
+This is the marketing site only. There is no login and no product here. The one
+piece of real backend is the waitlist: `app/api/waitlist/route.ts` inserts the
+submitted email into a Supabase `waitlist` table, server-side. It needs
+`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` set as environment variables, and
+the service role key must never be exposed to the client. Copy
+`.env.local.example` to `.env.local` to run it locally. Without those variables
+the route fails and the form reports an error.
 
 ## Tech stack
 
@@ -13,7 +21,7 @@ designed for the **family caregiver**: trustworthy, reassuring, and easy to read
 - **Tailwind CSS** (v3, classic `tailwind.config.ts`)
 - **Framer Motion** for all animation
 - **lucide-react** for icons
-- **next/font/google** — Fraunces (display serif) + Inter (body)
+- **next/font/google** - Fraunces (display serif) + Inter (body)
 
 ## Run it
 
@@ -45,7 +53,7 @@ components/
   AnswerDemo.tsx    # looping Q&A device mock (the centerpiece)
   Problem.tsx
   HowItWorks.tsx    # three step cards
-  SafetyPromise.tsx # "Nura never makes things up" — the trust anchor
+  SafetyPromise.tsx # "Nura never makes things up" - the trust anchor
   WhoItsFor.tsx
   Features.tsx      # six feature cards
   Faq.tsx           # accessible accordion
