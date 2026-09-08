@@ -7,6 +7,8 @@ whether to try it.
 
 Live: https://nura-six-alpha.vercel.app
 
+![The landing page](assets/screenshot.png)
+
 This is the marketing site only. There is no login and no product here. The one
 piece of real backend is the waitlist: `app/api/waitlist/route.ts` inserts the
 submitted email into a Supabase `waitlist` table, server-side. It needs
