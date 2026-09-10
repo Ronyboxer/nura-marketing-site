@@ -47,17 +47,14 @@ export const howItWorks = {
   heading: "How Nura works",
   steps: [
     {
-      icon: "NotebookPen" as const,
       title: "Your family fills it in",
       body: "On the caregiver side, you add the people, places, and moments that matter, in your own words.",
     },
     {
-      icon: "Mic" as const,
       title: "They simply ask",
       body: "Your loved one taps once and speaks. No menus, no learning, nothing to get wrong.",
     },
     {
-      icon: "Heart" as const,
       title: "They hear the truth, warmly",
       body: "Nura finds the answer you wrote and says it kindly, the fortieth time as gently as the first.",
     },
