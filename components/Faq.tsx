@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import { useId, useState } from "react";
 
@@ -9,6 +10,7 @@ import { faq } from "@/content/site";
 export function Faq() {
   const [open, setOpen] = useState<number | null>(null);
   const baseId = useId();
+  const reduced = useReducedMotion();
 
   return (
     <section id="faq" className="section scroll-mt-24">
@@ -52,14 +54,23 @@ export function Faq() {
                     )}
                   </button>
                 </h3>
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  hidden={!isOpen}
-                >
-                  <p className="t-body pb-6 text-ink-2">{item.answer}</p>
-                </div>
+                <AnimatePresence initial={false}>
+                  {isOpen ? (
+                    <motion.div
+                      id={panelId}
+                      className="overflow-hidden"
+                      initial={reduced ? false : { height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={reduced ? { opacity: 1 } : { height: 0, opacity: 0 }}
+                      transition={{
+                        duration: reduced ? 0 : 0.22,
+                        ease: [0.2, 0, 0, 1],
+                      }}
+                    >
+                      <p className="t-body pb-6 text-ink-2">{item.answer}</p>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </Reveal>
             );
           })}

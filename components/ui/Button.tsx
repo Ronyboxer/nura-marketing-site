@@ -15,7 +15,7 @@ const VARIANTS: Record<Variant, string> = {
 
 const SIZES: Record<Size, string> = {
   default: "h-11",
-  large: "h-[52px]",
+  large: "h-ask",
 };
 
 type ButtonProps = ComponentPropsWithoutRef<"button"> & {

@@ -42,6 +42,10 @@ const config: Config = {
         32: "128px",
         40: "160px",
       },
+      height: {
+        // The demo's ask button, the one control the system sizes up.
+        ask: "52px",
+      },
       maxWidth: {
         content: "1120px",
         prose: "680px",

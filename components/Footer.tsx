@@ -5,12 +5,12 @@ export function Footer() {
     <footer className="border-t border-line bg-canvas py-16">
       <div className="shell flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <p className="t-body text-ink">{footer.line}</p>
-        <ul className="flex flex-wrap gap-6">
+        <ul className="-my-3 flex flex-wrap gap-x-6">
           {footer.links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="t-body-s text-ink-2 transition-colors duration-150 ease-nura hover:text-ink"
+                className="t-body-s flex h-11 items-center text-ink-2 transition-colors duration-150 ease-nura hover:text-ink"
               >
                 {link.label}
               </a>

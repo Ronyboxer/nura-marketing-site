@@ -114,12 +114,34 @@
     animation: rise-in 400ms cubic-bezier(0.2, 0, 0, 1) both;
     animation-delay: var(--delay, 0ms);
   }
+
+  /* Scroll reveal. Done in CSS rather than in JS state so that the page is
+     never blank before hydration, and so that a reduced-motion reader gets the
+     final state from the first paint rather than after it. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 400ms cubic-bezier(0.2, 0, 0, 1),
+      transform 400ms cubic-bezier(0.2, 0, 0, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+
+  .reveal-shown {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Someone who has asked for less motion gets the final state, immediately. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 
   *,

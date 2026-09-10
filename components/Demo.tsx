@@ -46,7 +46,11 @@ export function Demo() {
 
   async function ask(asked: string) {
     const trimmed = asked.trim();
-    if (trimmed.length < 4 || pending) return;
+    if (pending) return;
+    if (trimmed.length < 4) {
+      inputRef.current?.focus();
+      return;
+    }
 
     setPending(true);
     setError(null);
@@ -96,10 +100,10 @@ export function Demo() {
           aria-labelledby={`${memoriesId}-label`}
           className="bg-sunken lg:border-r lg:border-line"
         >
-          <div className="flex items-center justify-between gap-4 px-6 pt-6 lg:pb-4">
-            <h3 id={`${memoriesId}-label`} className="t-label text-ink-3">
+          <div className="flex items-center justify-between gap-4 px-6 pt-6 md:px-8 md:pt-8 lg:pb-4">
+            <h2 id={`${memoriesId}-label`} className="t-label text-ink-3">
               {demo.memoriesLabel}
-            </h3>
+            </h2>
             <button
               type="button"
               aria-expanded={memoriesOpen}
@@ -118,7 +122,7 @@ export function Demo() {
           </div>
           <div
             id={memoriesId}
-            className={`px-6 pb-6 ${memoriesOpen ? "" : "hidden lg:block"}`}
+            className={`px-6 pb-6 md:px-8 md:pb-8 ${memoriesOpen ? "" : "hidden lg:block"}`}
           >
             <MemoryList />
           </div>
@@ -149,7 +153,7 @@ export function Demo() {
               <Button
                 type="submit"
                 size="large"
-                disabled={pending || question.trim().length < 4}
+                disabled={pending}
               >
                 {demo.submit}
               </Button>
@@ -157,14 +161,16 @@ export function Demo() {
           </form>
 
           <p className="t-label mt-6 text-ink-3">{demo.chipsLabel}</p>
-          <ul className="mt-3 flex flex-wrap gap-2">
+          {/* Chips are 32px by design; the transparent inset gives each one a
+              44px hit area without changing how it looks. */}
+          <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-4">
             {demo.chips.map((chip) => (
               <li key={chip.question}>
                 <button
                   type="button"
                   onClick={() => askChip(chip.question)}
                   disabled={pending}
-                  className="t-body-s flex h-8 items-center gap-3 rounded-sm border border-line bg-surface px-3 text-ink-2 transition-colors duration-150 ease-nura hover:border-line-strong hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-60"
+                  className="t-body-s relative flex h-8 items-center gap-3 rounded-sm border border-line bg-surface px-3 text-ink-2 transition-colors duration-150 ease-nura before:absolute before:inset-x-0 before:-inset-y-2 before:content-[''] hover:border-line-strong hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {chip.question}
                   {chip.marker ? (
@@ -175,7 +181,9 @@ export function Demo() {
             ))}
           </ul>
 
-          <div aria-live="polite" className="mt-6">
+          {/* Space is held for the answer on wide screens so that asking a
+              question does not shift the page under the reader. */}
+          <div aria-live="polite" className="mt-6 lg:min-h-40">
             {pending ? (
               <p className="t-body-s animate-slow-pulse text-ink-3">
                 {demo.thinking}
@@ -189,7 +197,9 @@ export function Demo() {
                   <>
                     <hr className="my-4 border-0 border-t border-green" />
                     <p className="t-label text-green-700">{demo.sourceLabel}</p>
-                    <p className="t-caption mt-2 text-ink-3">
+                    {/* ink-3 on green-100 measures 4.42:1, just under AA, so
+                        the quoted memory steps up to ink-2. */}
+                    <p className="t-caption mt-2 text-ink-2">
                       {answer.sourceMemory}
                     </p>
                   </>

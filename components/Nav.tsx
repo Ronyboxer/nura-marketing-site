@@ -29,7 +29,7 @@ export function Nav() {
       >
         <a
           href="#top"
-          className="font-display text-[1.25rem] leading-none text-ink"
+          className="t-title -ml-2 flex h-11 items-center rounded-md px-2 font-display font-normal text-ink"
         >
           {nav.wordmark}
         </a>
@@ -39,7 +39,7 @@ export function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="t-body-s text-ink-2 transition-colors duration-150 ease-nura hover:text-ink"
+                className="t-body-s flex h-11 items-center text-ink-2 transition-colors duration-150 ease-nura hover:text-ink"
               >
                 {link.label}
               </a>
