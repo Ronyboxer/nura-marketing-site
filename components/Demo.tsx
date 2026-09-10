@@ -162,7 +162,8 @@ export function Demo() {
 
           <p className="t-label mt-6 text-ink-3">{demo.chipsLabel}</p>
           {/* Chips are 32px by design; the transparent inset gives each one a
-              44px hit area without changing how it looks. */}
+              44px hit area without changing how it looks. They grow rather
+              than clip when a long label has to wrap on a narrow screen. */}
           <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-4">
             {demo.chips.map((chip) => (
               <li key={chip.question}>
@@ -170,11 +171,13 @@ export function Demo() {
                   type="button"
                   onClick={() => askChip(chip.question)}
                   disabled={pending}
-                  className="t-body-s relative flex h-8 items-center gap-3 rounded-sm border border-line bg-surface px-3 text-ink-2 transition-colors duration-150 ease-nura before:absolute before:inset-x-0 before:-inset-y-2 before:content-[''] hover:border-line-strong hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-60"
+                  className="t-body-s relative block min-h-8 rounded-sm border border-line bg-surface px-3 py-1 text-left text-ink-2 transition-colors duration-150 ease-nura before:absolute before:inset-x-0 before:-inset-y-2 before:content-[''] hover:border-line-strong hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {chip.question}
                   {chip.marker ? (
-                    <span className="t-label text-clay">{chip.marker}</span>
+                    <span className="t-label ml-3 whitespace-nowrap text-clay">
+                      {chip.marker}
+                    </span>
                   ) : null}
                 </button>
               </li>
