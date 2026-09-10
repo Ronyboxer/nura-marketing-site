@@ -1,38 +1,25 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Problem from "@/components/Problem";
-import HowItWorks from "@/components/HowItWorks";
-import SafetyPromise from "@/components/SafetyPromise";
-import WhoItsFor from "@/components/WhoItsFor";
-import Features from "@/components/Features";
-import Faq from "@/components/Faq";
-import WaitlistCTA from "@/components/WaitlistCTA";
-import Footer from "@/components/Footer";
+import { Faq } from "@/components/Faq";
+import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/Hero";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Nav } from "@/components/Nav";
+import { Refusal } from "@/components/Refusal";
+import { Waitlist } from "@/components/Waitlist";
+import { WhoItsFor } from "@/components/WhoItsFor";
 
-export default function Home() {
+export default function Page() {
   return (
     <>
-      {/* Skip link for keyboard users */}
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-deep focus:px-4 focus:py-2 focus:text-white"
-      >
-        Skip to content
-      </a>
-
-      <Navbar />
-
+      <span id="top" />
+      <Nav />
       <main id="main">
         <Hero />
-        <Problem />
+        <Refusal />
         <HowItWorks />
-        <SafetyPromise />
         <WhoItsFor />
-        <Features />
         <Faq />
-        <WaitlistCTA />
+        <Waitlist />
       </main>
-
       <Footer />
     </>
   );

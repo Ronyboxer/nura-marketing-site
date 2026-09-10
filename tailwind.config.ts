@@ -1,9 +1,5 @@
 import type { Config } from "tailwindcss";
 
-// Nura design system — "dark earthy edition". Dark slate gray is the ground;
-// moss green is the single accent (mic, active states, affirmations, highlights).
-// Text is warm off-white on slate. No blue, no gold — backgrounds are soft dark
-// gradient washes, never dead flat fills.
 const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
@@ -11,109 +7,81 @@ const config: Config = {
     "./content/**/*.{ts,tsx}",
   ],
   theme: {
+    // The design system is a closed set. Anything not listed here is not
+    // available to a component, which is the point.
     extend: {
       colors: {
-        canvas: "#202423", // page ground
-        surface: "#2C3230", // cards
-        raised: "#262B29", // raised surface
-        tint: "#333A37", // field / alternate section surface
-        line: "#3D443F", // hairline / soft borders
-        deepest: "#191D1C", // deepest ground — dark panels, device chrome
-
-        // Moss is the single accent — mic, active states, affirmations.
-        moss: {
-          DEFAULT: "#6E9074", // primary moss
-          bright: "#93B497", // bright moss — text/icon accents on slate
-          deep: "#5C7A62", // deep moss — button fills
-          deepest: "#486150", // deepest moss — hover
+        canvas: "#FBFBF9",
+        surface: "#FFFFFF",
+        sunken: "#F4F4F1",
+        line: { DEFAULT: "#E6E6E1", strong: "#D2D2CB" },
+        ink: { DEFAULT: "#191A17", 2: "#4A4C46", 3: "#6B6D65" },
+        green: {
+          DEFAULT: "#2F6B4F",
+          50: "#F1F7F3",
+          100: "#E4EEE8",
+          600: "#2A5F44",
+          700: "#1E4A36",
         },
-
-        // Legacy token names remapped onto the new palette so existing markup
-        // keeps its meaning: "sky" = the accent, "deep" = filled-button color.
-        sky: {
-          DEFAULT: "#93B497", // accent (bright moss on dark)
-          deep: "#5C7A62",
-        },
-        deep: {
-          DEFAULT: "#5C7A62", // primary button fill (deep moss)
-          dark: "#486150", // button hover (deeper moss)
-        },
-
-        ink: "#EDEFE7", // text primary + headings (warm off-white)
-        slate: "#97A199", // text secondary (muted sage-gray)
-        onaccent: "#14201A", // dark ink on BRIGHT moss fills (icon tiles, mic)
-
-        sun: {
-          DEFAULT: "#6E9074", // affirmation accent (moss)
-          tint: "rgba(110, 144, 116, 0.16)", // affirmation wash
-        },
-        clay: "#C97F5E", // muted terracotta (errors / destructive)
+        clay: { DEFAULT: "#8A5A3B", 100: "#F6EFE8" },
       },
       fontFamily: {
-        display: ["var(--font-lora)", "Georgia", "serif"],
-        sans: ["var(--font-jakarta)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
-      boxShadow: {
-        // On a dark ground, depth comes from soft dark shadows + a hairline.
-        soft: "0 4px 16px rgba(0, 0, 0, 0.30)",
-        "soft-lg": "0 18px 44px rgba(0, 0, 0, 0.42)",
-        glow: "0 0 0 1px rgba(147, 180, 151, 0.08), 0 22px 50px rgba(0, 0, 0, 0.50)",
-        // Warm moss glow reserved for focal elements (talk button, affirmations).
-        talk: "0 8px 30px rgba(110, 144, 116, 0.40)",
+      spacing: {
+        1: "4px",
+        2: "8px",
+        3: "12px",
+        4: "16px",
+        6: "24px",
+        8: "32px",
+        12: "48px",
+        16: "64px",
+        24: "96px",
+        32: "128px",
+        40: "160px",
       },
-      backgroundImage: {
-        // Page ground — dark slate with a breath of light from the top.
-        "canvas-gradient":
-          "radial-gradient(135% 100% at 50% 0%, #272D2A 0%, #202423 55%, #191D1C 100%)",
-        // Hero / calm surface — dark wash with a faint moss settle at the base.
-        "sky-gradient":
-          "radial-gradient(130% 100% at 50% 8%, #2B322E 0%, #222724 46%, #1A1F1D 100%)",
-        // Bright moss fill for hero actions / focal surfaces.
-        "moss-gradient": "linear-gradient(155deg, #82A588 0%, #5F7E66 100%)",
-        // Deep moss fill for small-text primary buttons.
-        "forest-gradient": "linear-gradient(155deg, #5F7E66 0%, #47614D 100%)",
-        // Moss glow that sits behind focal elements.
-        "glow-focal":
-          "radial-gradient(closest-side, rgba(126,165,132,0.50), rgba(126,165,132,0.16) 55%, rgba(126,165,132,0) 78%)",
-      },
-      borderRadius: {
-        // Restrained card radius (16px) per the design system.
-        card: "1rem",
+      height: {
+        // The demo's ask button, the one control the system sizes up.
+        ask: "52px",
       },
       maxWidth: {
-        content: "1200px",
+        content: "1120px",
+        prose: "680px",
+      },
+      borderRadius: {
+        sm: "6px",
+        md: "10px",
+        lg: "16px",
+        xl: "24px",
+      },
+      boxShadow: {
+        // The only shadow in the system. Demo panel only.
+        panel:
+          "0 1px 2px rgba(25,26,23,0.04), 0 8px 24px -12px rgba(25,26,23,0.10)",
       },
       transitionTimingFunction: {
-        soft: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        nura: "cubic-bezier(0.2, 0, 0, 1)",
+      },
+      transitionDuration: {
+        150: "150ms",
+        220: "220ms",
+        400: "400ms",
       },
       keyframes: {
-        // Gentle vertical bob — for the demo card and floating glints.
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
+        "rise-in": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
-        // Slow ambient drift for the background moss glows (aurora feel).
-        drift: {
-          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "50%": { transform: "translate(24px, -18px) scale(1.06)" },
-        },
-        // Expanding ring for the "listening" pulse.
-        ripple: {
-          "0%": { transform: "scale(0.85)", opacity: "0.55" },
-          "100%": { transform: "scale(2.4)", opacity: "0" },
-        },
-        // Soft sheen sweep across buttons on hover.
-        sheen: {
-          "0%": { transform: "translateX(-120%)" },
-          "100%": { transform: "translateX(120%)" },
+        "slow-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.45" },
         },
       },
       animation: {
-        float: "float 7s cubic-bezier(0.45, 0, 0.55, 1) infinite",
-        "float-slow": "float 10s cubic-bezier(0.45, 0, 0.55, 1) infinite",
-        drift: "drift 16s ease-in-out infinite",
-        "drift-rev": "drift 20s ease-in-out infinite reverse",
-        ripple: "ripple 2.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite",
+        "rise-in": "rise-in 400ms cubic-bezier(0.2, 0, 0, 1) both",
+        "slow-pulse": "slow-pulse 1800ms cubic-bezier(0.2, 0, 0, 1) infinite",
       },
     },
   },

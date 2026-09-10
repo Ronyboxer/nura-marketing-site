@@ -1,72 +1,59 @@
-"use client";
+import type { ComponentPropsWithoutRef } from "react";
 
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+type Variant = "primary" | "secondary" | "ghost";
+type Size = "default" | "large";
 
-type Variant = "primary" | "secondary";
+const BASE =
+  "t-body-s inline-flex items-center justify-center gap-2 rounded-md px-5 font-medium transition-colors duration-150 ease-nura disabled:cursor-not-allowed disabled:opacity-60";
 
-interface ButtonProps {
-  children: ReactNode;
-  href?: string;
-  onClick?: () => void;
-  type?: "button" | "submit";
-  variant?: Variant;
-  className?: string;
-  ariaLabel?: string;
-}
-
-const base =
-  "sheen inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold tracking-[0.02em] min-h-[44px] transition-colors duration-200 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-sky";
-
-const variants: Record<Variant, string> = {
-  // Deep moss fill + off-white text — the default for small-text actions.
-  primary:
-    "bg-forest-gradient text-ink shadow-soft ring-1 ring-inset ring-white/5 hover:brightness-110",
-  // Dark surface with a hairline border + off-white text; hover lifts to moss.
+const VARIANTS: Record<Variant, string> = {
+  primary: "bg-green text-surface hover:bg-green-700",
   secondary:
-    "bg-surface text-ink border border-line hover:border-sky hover:bg-tint",
+    "border border-line-strong bg-surface text-ink hover:border-ink-3 hover:bg-sunken",
+  ghost: "text-green hover:bg-green-50",
 };
 
-export default function Button({
-  children,
-  href,
-  onClick,
-  type = "button",
+const SIZES: Record<Size, string> = {
+  default: "h-11",
+  large: "h-ask",
+};
+
+type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+  variant?: Variant;
+  size?: Size;
+};
+
+export function Button({
   variant = "primary",
+  size = "default",
   className = "",
-  ariaLabel,
+  type = "button",
+  ...props
 }: ButtonProps) {
-  const classes = `${base} ${variants[variant]} ${className}`;
-
-  // Buttons lift slightly on hover, settle on tap.
-  const motionProps = {
-    whileHover: { y: -2 },
-    whileTap: { y: 0, scale: 0.98 },
-    transition: { type: "spring" as const, stiffness: 400, damping: 25 },
-  };
-
-  if (href) {
-    return (
-      <motion.a
-        href={href}
-        aria-label={ariaLabel}
-        className={classes}
-        {...motionProps}
-      >
-        {children}
-      </motion.a>
-    );
-  }
-
   return (
-    <motion.button
+    <button
       type={type}
-      onClick={onClick}
-      aria-label={ariaLabel}
-      className={classes}
-      {...motionProps}
-    >
-      {children}
-    </motion.button>
+      className={`${BASE} ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
+      {...props}
+    />
+  );
+}
+
+type LinkButtonProps = ComponentPropsWithoutRef<"a"> & {
+  variant?: Variant;
+  size?: Size;
+};
+
+export function LinkButton({
+  variant = "primary",
+  size = "default",
+  className = "",
+  ...props
+}: LinkButtonProps) {
+  return (
+    <a
+      className={`${BASE} ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
+      {...props}
+    />
   );
 }

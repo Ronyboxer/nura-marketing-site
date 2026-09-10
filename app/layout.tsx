@@ -1,33 +1,36 @@
 import type { Metadata } from "next";
-import { Lora, Plus_Jakarta_Sans } from "next/font/google";
-import Providers from "@/components/Providers";
+import { Newsreader, Figtree } from "next/font/google";
 import "./globals.css";
 
-// Display / headings: Lora (warm, classic serif). Body / UI: Plus Jakarta Sans.
-const lora = Lora({
+// Display face. Newsreader carries the warmth; it is never bolded for
+// emphasis, only enlarged.
+const display = Newsreader({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500"],
   style: ["normal", "italic"],
-  variable: "--font-lora",
   display: "swap",
+  variable: "--font-display",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+// General Sans is the intended UI face, but the woff2 files are not in the
+// repo. Figtree is the stand-in: same humanist-geometric temperament, and it
+// loads from Google Fonts with no binaries to check in.
+const sans = Figtree({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-jakarta",
+  weight: ["400", "500", "600"],
   display: "swap",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title: "Nura — The same kind answer, every time they ask.",
+  metadataBase: new URL("https://nura-six-alpha.vercel.app"),
+  title: "Nura — the same kind answer, every time they ask.",
   description:
-    "Nura is a gentle voice companion for people living with dementia and Alzheimer's. Your family writes the answers — Nura shares them warmly, and only ever the truth you've given it.",
-  metadataBase: new URL("https://nura.example"),
+    "Nura is a gentle voice companion for people living with dementia and Alzheimer's. Your family writes the answers. Nura shares them warmly, patiently, and only ever the truth you've given it.",
   openGraph: {
-    title: "Nura — The same kind answer, every time they ask.",
+    title: "Nura — the same kind answer, every time they ask.",
     description:
-      "A gentle, voice-first companion for older adults living with dementia and memory loss. Family writes the answers; Nura never makes anything up.",
+      "A gentle voice companion for people living with dementia. Your family writes the answers. Nura never makes anything up.",
     type: "website",
   },
 };
@@ -38,9 +41,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lora.variable} ${jakarta.variable}`}>
-      <body className="bg-canvas font-sans text-slate antialiased">
-        <Providers>{children}</Providers>
+    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+      <body>
+        <a
+          href="#main"
+          className="t-body-s sr-only rounded-md focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-surface focus:px-4 focus:py-3 focus:text-ink focus:shadow-panel"
+        >
+          Skip to content
+        </a>
+        {children}
       </body>
     </html>
   );
